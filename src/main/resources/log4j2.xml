@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+
+    <Properties>
+        <Property name="log4j.skipJansi" value="false"/>
+    </Properties>
+
+    <Appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="[%d{HH:mm:ss}] %highlight{[%level] [%t]: %msg}{FATAL=red blink, ERROR=red bold, WARN=yellow bold, INFO=normal, DEBUG=white faint, TRACE=blue}%n" disableAnsi="false"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <Root level="DEBUG">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>
