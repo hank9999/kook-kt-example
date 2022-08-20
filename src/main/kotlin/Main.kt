@@ -20,20 +20,25 @@ fun main() {
     bot.registerMessageFunc { msg, cs -> message2(msg, cs) }
     bot.registerMessageFunc { msg, cs -> message3(msg, cs) }
     GlobalScope.launch {
+        // 获取接口
+        val httpApi = bot.httpApi
+        val kookApi = bot.kookApi
+
         // 调用未封装 API 返回 JSON 对象, 需要在协程里调用
         // 获取第一个已加入服务器
-        val data1 = HttpApi.request(Api.Guild.List())
+        val data1 = httpApi.request(Api.Guild.List())
         print(data1.jsonArray[0])
         // 获取每一页第一个已加入服务器
-        HttpApi.requestAsFlow(Api.Guild.List()).collect {
+        httpApi.requestAsFlow(Api.Guild.List()).collect {
             print(it.jsonArray[0])
         }
-        HttpApi.requestAsIterator(Api.Guild.List()).forEach {
+        httpApi.requestAsIterator(Api.Guild.List()).forEach {
             println(it.jsonArray[0])
         }
+
         // 调用已封装 API, 需要在协程里调用
         // 获取网关
-        println(HttpApi.Gateway.index()) // 直接是 URL
+        println(kookApi.Gateway().index()) // 直接是 URL
     }
 }
 
